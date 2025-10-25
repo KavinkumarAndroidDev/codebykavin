@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeByKavin – Explore My Creations</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Google Fonts (Poppins for Headings, Inter for Body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="/public/css/style.css">
+    <!-- Load Lucide Icons -->
+    <script type="module" src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-dark-main': '#0F111A',
+                        'bg-light-main': '#F9F9F9',
+                        'card-dark': '#1E1E2F',
+                        'card-light': '#FFFFFF',
+                        'accent-primary': '#4AC0FF',
+                        'accent-secondary': '#FF6B6B',
+                        'accent-cta': '#FFD166',
+                        'text-primary-dark': '#E6E6E6',
+                        'text-primary-light': '#333',
+                        'text-secondary-dark': '#A0A0B0',
+                        'text-secondary-light': '#A0A0B0',
+                        'pastel-1': '#FFC857',
+                        'pastel-2': '#4ECDC4',
+                    },
+                    boxShadow: {
+                        'soft-dark': '0 10px 30px rgba(0, 0, 0, 0.3)',
+                        'soft-light': '0 8px 20px rgba(0, 0, 0, 0.1)',
+                        'neon-primary': '0 0 15px rgba(74, 192, 255, 0.7)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="dark:bg-bg-dark-main bg-bg-light-main dark:text-text-primary-dark text-text-primary-light min-h-screen">
+    
+    <!-- Floating Navbar -->
+    <nav id="navbar" class="sticky top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center rounded-b-2xl dark:bg-card-dark/80 bg-card-light/90 backdrop-blur-md shadow-md">
+            <h1 class="text-2xl font-bold dark:text-accent-primary text-accent-primary">CodeByKavin</h1>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 text-lg font-medium dark:text-text-primary-dark/80 text-text-primary-light/80">
+                <a href="#home" onclick="location.hash='#home'" class="nav-link hover:text-accent-primary transition-colors">Home</a>
+                <a href="#apps" onclick="location.hash='#apps'" class="nav-link hover:text-accent-primary transition-colors">Apps</a>
+                <a href="#updates" onclick="location.hash='#updates'" class="nav-link hover:text-accent-primary transition-colors">Updates</a>
+                <a href="#about" onclick="location.hash='#about'" class="nav-link hover:text-accent-primary transition-colors">About</a>
+            </div>
+
+            <!-- Dark/Light Mode Toggle -->
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden p-2 dark:text-text-primary-dark text-text-primary-light">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute w-full dark:bg-card-dark bg-card-light shadow-lg py-2 rounded-b-xl transition-all duration-300 ease-in-out">
+            <a href="#home" onclick="handleMobileLinkClick('#home')" class="block px-4 py-2 dark:text-text-primary-dark text-text-primary-light hover:bg-accent-primary/20">Home</a>
+            <a href="#apps" onclick="handleMobileLinkClick('#apps')" class="block px-4 py-2 dark:text-text-primary-dark text-text-primary-light hover:bg-accent-primary/20">Apps</a>
+            <a href="#updates" onclick="handleMobileLinkClick('#updates')" class="block px-4 py-2 dark:text-text-primary-dark text-text-primary-light hover:bg-accent-primary/20">Updates</a>
+            <a href="#about" onclick="handleMobileLinkClick('#about')" class="block px-4 py-2 dark:text-text-primary-dark text-text-primary-light hover:bg-accent-primary/20">About</a>
+        </div>
+    </nav>
+    
+    <main id="content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 transition-opacity duration-500">
+        <!-- Loading spinner will be shown initially by JS -->
+    </main>
+
+    <!-- Floating Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 p-3 rounded-full bg-accent-primary text-[#0F111A] shadow-xl transition-all duration-300 opacity-0 transform translate-y-4 hover:scale-110" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <i data-lucide="chevron-up" class="w-6 h-6"></i>
+    </button>
+
+    <!-- Lightbox Modal for Screenshots -->
+    <div id="lightbox" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-50 transition-opacity duration-300" onclick="closeLightbox()">
+        <div class="relative w-[90vw] h-[90vh] flex items-center justify-center">
+            <img id="lightbox-image" src="" alt="Zoomed Screenshot" class="max-w-full max-h-full object-contain" onclick="event.stopPropagation()">
+            <button onclick="closeLightbox()" class="absolute -top-4 -right-4 p-2 bg-white/20 text-white rounded-full hover:bg-white/40 transition">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Global Message/Alert Box -->
+    <div id="message-container" class="fixed top-24 right-4 z-[100] w-full max-w-sm"></div>
+
+    <footer class="mt-20 py-10 dark:bg-card-dark bg-card-light rounded-t-3xl shadow-inner">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center dark:text-text-secondary-dark text-text-secondary-light">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://www.linkedin.com/in/kavinkumar442005/" target="_blank" class="hover:text-accent-primary transition duration-200" aria-label="LinkedIn">
+                    <i data-lucide="linkedin" class="w-6 h-6"></i>
+                </a>
+                <a href="https://github.com/KavinkumarAndroidDev" target="_blank" class="hover:text-accent-primary transition duration-200" aria-label="GitHub">
+                    <i data-lucide="github" class="w-6 h-6"></i>
+                </a>
+                <a href="mailto:r.kavinkumar.dev@gmail.com" class="hover:text-accent-primary transition duration-200" aria-label="Email">
+                    <i data-lucide="mail" class="w-6 h-6"></i>
+                </a>
+            </div>
+            <p class="text-sm mono">© 2025 CodeByKavin. Built with Passion & Pixels.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script type="module" src="/public/js/main.js"></script>
+</body>
+</html>

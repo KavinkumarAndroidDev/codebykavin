@@ -1,0 +1,62 @@
+/* Base styles using the specified fonts */
+body {
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.5s, color 0.5s;
+}
+h1, h2, h3 {
+    font-family: 'Poppins', sans-serif;
+}
+.mono {
+    font-family: 'Space Mono', monospace;
+}
+
+/* Custom scrollbar for better aesthetics */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--tw-bg-card-dark);
+}
+::-webkit-scrollbar-thumb {
+    background: #4AC0FF;
+    border-radius: 4px;
+}
+.dark ::-webkit-scrollbar-track {
+    background: #0F111A;
+}
+.dark ::-webkit-scrollbar-thumb {
+    background: #4AC0FF;
+}
+
+/* Glassmorphism Effect for Dark Mode Cards */
+.dark .card-glass {
+    background-color: rgba(30, 30, 47, 0.7); /* card-dark with transparency */
+    backdrop-filter: blur(8px);
+}
+.card-glass {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Hero Background - Subtle Animated Shapes */
+.hero-bg {
+    background-image: radial-gradient(circle at 10% 20%, #4AC0FF 0%, transparent 20%), 
+                      radial-gradient(circle at 90% 80%, #FF6B6B 0%, transparent 20%);
+    background-size: 300% 300%;
+    animation: gradient-shift 15s ease infinite alternate;
+}
+@keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+/* Loading Spinner */
+.loader {
+    border-top-color: #4AC0FF;
+    border-left-color: #4AC0FF;
+    border-right-color: #FF6B6B;
+    border-bottom-color: #FF6B6B;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
