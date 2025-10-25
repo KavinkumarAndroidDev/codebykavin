@@ -7,15 +7,7 @@ import { runTransaction } from "https://www.gstatic.com/firebasejs/11.6.1/fireba
 
 // Use global variables provided by the environment, or fallbacks
 const appId = typeof __app_id !== 'undefined' ? __app_id : 'codebykavin'; // Align with projectId for consistency
-const firebaseConfig = {
-  apiKey: "$FIREBASE_API_KEY",
-  authDomain: "$FIREBASE_AUTH_DOMAIN",
-  projectId: "$FIREBASE_PROJECT_ID",
-  storageBucket: "$FIREBASE_STORAGE_BUCKET",
-  messagingSenderId: "$FIREBASE_MESSAGING_SENDER_ID",
-  appId: "$FIREBASE_APP_ID",
-  measurementId: "$FIREBASE_MEASUREMENT_ID"
-};
+const firebaseConfig = window.__firebase_config__;
 const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
 let db, auth, userId = null;
