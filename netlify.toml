@@ -1,0 +1,7 @@
+# This file tells Netlify how to build and deploy your site.
+[build]
+  # This command creates a 'dist' directory and copies your site files into it.
+  # This build step is necessary to trigger Netlify's environment variable injection.
+  command = "mkdir dist && cp -r index.html js css dist/"
+  # The 'publish' directory is where Netlify serves your site from.
+  publish = "dist"
