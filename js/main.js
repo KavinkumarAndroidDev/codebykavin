@@ -1066,7 +1066,7 @@ window.submitRating = async (appId, rating) => {
         return alertMessage('You have already rated this app.', 'error');
     }
 
-    const appRef = doc(db, `artifacts/${appId}/public/data/apps/${appId}`);
+    const appRef = doc(db, `artifacts/codebykavin/public/data/apps/${appId}`);
 
     try {
         await runTransaction(db, async (transaction) => {
