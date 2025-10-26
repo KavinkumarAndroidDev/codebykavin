@@ -871,7 +871,7 @@ const showAppDetail = async (appId, isReRender = false) => { // isReRender is no
     let changelog = [];
     try {
         // FIX: The path was incorrect. It should use the global `appId` (e.g., 'codebykavin'), not the app's document ID.
-        const changelogCollectionRef = collection(db, `artifacts/${window.appId}/public/data/apps/${appId}/changelog`);
+        const changelogCollectionRef = collection(db, `artifacts/codebykavin/public/data/apps/${appId}/changelog`);
         // Query for changelog entries, ordered by date descending
         const changelogQuery = query(changelogCollectionRef, orderBy('date', 'desc')); 
         const changelogSnapshot = await getDocs(changelogQuery);
