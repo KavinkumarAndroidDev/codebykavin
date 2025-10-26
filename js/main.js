@@ -536,6 +536,39 @@ const renderAppDetailPage = (app, changelog) => {
         updateScreenshot(isLightbox);
     };
 
+    // --- Floating Action Bar (FAB) Logic for Mobile ---
+    const fabContainer = document.getElementById('app-detail-fab');
+    if (fabContainer) {
+        // 1. Populate the FAB with download buttons
+        const hasDownloads = app.apkUrl || app.playStoreUrl;
+        if (hasDownloads) {
+            fabContainer.innerHTML = `
+                <div class="flex space-x-3">
+                    ${app.apkUrl ? `
+                    <a href="${app.apkUrl}" download onclick="window.handleDownloadClick('${app.id}', event)" class="flex-1">
+                        <button class="w-full px-4 py-3 rounded-xl font-bold text-sm transition duration-300 bg-accent-cta text-[#0F111A] flex items-center justify-center" type="button">
+                            <i data-lucide="download" class="w-4 h-4 mr-2"></i>
+                            Download APK
+                        </button>
+                    </a>
+                    ` : ''}
+                    ${app.playStoreUrl ? `
+                    <a href="${app.playStoreUrl}" target="_blank" rel="noopener noreferrer" class="flex-1">
+                        <button class="w-full px-4 py-3 rounded-xl font-bold text-sm transition duration-300 border-2 border-accent-secondary text-accent-secondary hover:bg-accent-secondary/10 flex items-center justify-center">
+                            <i data-lucide="play" class="w-4 h-4 mr-2"></i>
+                            Play Store
+                        </button>
+                    </a>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        // 2. Add scroll listener to show/hide the FAB
+        window.addEventListener('scroll', handleFabVisibility, { passive: true });
+    }
+    // --- End FAB Logic ---
+
 
     return `
         <button onclick="location.hash = '#apps'" class="flex items-center dark:text-accent-secondary text-accent-secondary mb-8 transition hover:translate-x-[-4px]">
@@ -848,6 +881,26 @@ const showPage = (page, options = {}, shouldScroll = true) => {
     }, 300); 
 };
 
+const handleFabVisibility = () => {
+    const fab = document.getElementById('app-detail-fab');
+    if (!fab) return;
+
+    // Show FAB if user has scrolled past the top section (approx 300px)
+    if (window.scrollY > 300) {
+        fab.classList.remove('translate-y-full');
+    } else {
+        fab.classList.add('translate-y-full');
+    }
+};
+
+const cleanupFab = () => {
+    window.removeEventListener('scroll', handleFabVisibility);
+    const fab = document.getElementById('app-detail-fab');
+    if (fab) {
+        fab.classList.add('translate-y-full');
+        fab.innerHTML = ''; // Clear content
+    }
+};
 /**
  * New handler to read filter values directly from the DOM, resolving the ReferenceError.
  */
@@ -871,6 +924,7 @@ window.handleFilterChange = () => {
 const showAppDetail = async (appId, isReRender = false) => { // isReRender is not used, but kept for signature consistency
     selectedAppId = appId;
     currentPage = 'app-detail';
+    cleanupFab(); // Clean up any previous listeners before starting
 
     if (!isReRender) {
         // Show a brief loading indicator/placeholder for the asynchronous fetch
@@ -966,6 +1020,7 @@ const handleRouting = () => {
 
     switch (path) {
         case 'home':
+            cleanupFab();
             showPage('home');
             break;
         case 'apps':
@@ -973,9 +1028,11 @@ const handleRouting = () => {
             showPage('apps', { filter: filter });
             break;
         case 'updates':
+            cleanupFab();
             showPage('updates');
             break;
         case 'about':
+            cleanupFab();
             showPage('about');
             break;
         case 'app':
@@ -987,6 +1044,7 @@ const handleRouting = () => {
             }
             break;
         default:
+            cleanupFab();
             showPage('home'); // Fallback to home
     }
 };
