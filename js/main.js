@@ -651,7 +651,7 @@ const renderAppDetailPage = (app, changelog) => {
             <div class="lg:col-span-1">
                 <div class="sticky top-24 space-y-8">
                     <!-- Download Options -->
-                    <div class="card-glass p-6 rounded-2xl shadow-soft-dark">
+                    <div id="download-stats-section" class="card-glass p-6 rounded-2xl shadow-soft-dark">
                         <h3 class="text-2xl font-bold mb-4">Download & Stats</h3>
                         <div class="space-y-4">
                             ${app.apkUrl ? `
@@ -884,9 +884,18 @@ const showPage = (page, options = {}, shouldScroll = true) => {
 const handleFabVisibility = () => {
     const fab = document.getElementById('app-detail-fab');
     if (!fab) return;
+    
+    const downloadSection = document.getElementById('download-stats-section');
+    let downloadSectionVisible = true; // Default to true if not found, to hide FAB
+    if (downloadSection) {
+        const rect = downloadSection.getBoundingClientRect();
+        // Consider it "visible" if its top is above the bottom of the viewport
+        downloadSectionVisible = rect.top < window.innerHeight;
+    }
 
     // Show FAB if user has scrolled past the top section (approx 300px)
-    if (window.scrollY > 300) {
+    // AND the main download section is NOT yet visible.
+    if (window.scrollY > 300 && !downloadSectionVisible) {
         fab.classList.remove('translate-y-full');
     } else {
         fab.classList.add('translate-y-full');
