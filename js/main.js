@@ -694,7 +694,7 @@ const renderAppDetailPage = (app, changelog) => {
                             </div>
                             <div class="flex justify-between items-center">
                                 <span class="font-medium">Rating:</span>
-                                <span class="flex items-center space-x-1">${starRating(app.rating)} (${app.rating})</span>
+                                <span class="flex items-center space-x-1">${starRating(app.rating || 0)} (${(app.rating || 0).toFixed(1)})</span>
                             </div>
                         </div>
                     </div>
@@ -1060,9 +1060,17 @@ const handleRouting = () => {
 
 // --- DYNAMIC USER ACTIONS ---
 
+let isSubmittingRating = false; // Flag to prevent spam clicks
+
 window.submitRating = async (appId, rating) => {
+    if (isSubmittingRating) {
+        return alertMessage('Please wait, your previous rating is being submitted.', 'info');
+    }
+    isSubmittingRating = true;
+
     const ratedApps = JSON.parse(localStorage.getItem('ratedApps') || '{}');
     if (ratedApps[appId]) {
+        isSubmittingRating = false; // Reset flag
         return alertMessage('You have already rated this app.', 'error');
     }
 
@@ -1095,6 +1103,8 @@ window.submitRating = async (appId, rating) => {
     } catch (error) {
         console.error("Rating transaction failed: ", error);
         alertMessage("Could not submit rating. Please try again.", 'error');
+    } finally {
+        isSubmittingRating = false; // Always reset the flag
     }
 };
 
