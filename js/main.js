@@ -1105,7 +1105,7 @@ window.handleDownloadClick = async (appId, event) => {
     // WARNING: This is not a secure method for counting downloads as it can be triggered
     // multiple times by a single user. The recommended approach is a Firebase Function.
     // However, for a portfolio site, this is a practical implementation.
-    const appRef = doc(db, `artifacts/${appId}/public/data/apps/${appId}`);
+    const appRef = doc(db, `artifacts/codebykavin/public/data/apps/${appId}`);
     try {
         await runTransaction(db, async (transaction) => {
             const appDoc = await transaction.get(appRef);
