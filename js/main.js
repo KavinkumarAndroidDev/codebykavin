@@ -582,14 +582,26 @@ const renderAppDetailPage = (app, changelog) => {
 
                 <!-- Changelog / What's New -->
                 <h2 class="text-3xl font-bold mb-4">What's New</h2>
-                <div class="space-y-4">
-                    ${changelog.length > 0 ? changelog.map(log => `
+                ${(() => {
+                    if (changelog.length === 0) {
+                        return '<p class="dark:text-text-secondary-dark">No changelog entries found yet.</p>';
+                    }
+                    const recentLog = changelog[0];
+                    const olderLogs = changelog.slice(1);
+                    const createLogItem = log => `
                         <div class="card-glass p-4 rounded-xl shadow-soft-dark">
                             <h4 class="font-bold text-lg dark:text-accent-primary">Version ${log.version} <span class="mono text-sm dark:text-text-secondary-dark font-normal">(${formatDate(log.date)})</span></h4>
                             <p class="dark:text-text-secondary-dark mt-1">${log.notes}</p>
+                        </div>`;
+
+                    return `
+                        <div class="space-y-4">
+                            ${createLogItem(recentLog)}
+                            ${olderLogs.length > 0 ? `<div id="older-changelogs" class="hidden space-y-4">${olderLogs.map(createLogItem).join('')}</div>` : ''}
                         </div>
-                    `).join('') : '<p class="dark:text-text-secondary-dark">No changelog entries found yet.</p>'}
-                </div>
+                        ${olderLogs.length > 0 ? `<button id="show-more-btn" onclick="document.getElementById('older-changelogs').classList.remove('hidden'); this.style.display='none';" class="mt-4 w-full text-center py-2 rounded-lg font-semibold text-sm transition duration-200 border border-accent-primary text-accent-primary hover:bg-accent-primary/10">Show More</button>` : ''}
+                    `;
+                })()}
             </div>
 
             <!-- Sidebar Column (Download & Stats) -->
