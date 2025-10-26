@@ -582,26 +582,36 @@ const renderAppDetailPage = (app, changelog) => {
 
                 <!-- Changelog / What's New -->
                 <h2 class="text-3xl font-bold mb-4">What's New</h2>
-                ${(() => {
-                    if (changelog.length === 0) {
-                        return '<p class="dark:text-text-secondary-dark">No changelog entries found yet.</p>';
-                    }
-                    const recentLog = changelog[0];
-                    const olderLogs = changelog.slice(1);
-                    const createLogItem = log => `
-                        <div class="card-glass p-4 rounded-xl shadow-soft-dark">
-                            <h4 class="font-bold text-lg dark:text-accent-primary">Version ${log.version} <span class="mono text-sm dark:text-text-secondary-dark font-normal">(${formatDate(log.date)})</span></h4>
-                            <p class="dark:text-text-secondary-dark mt-1">${log.notes}</p>
-                        </div>`;
+                <div id="changelog-container" data-visible-logs="0">
+                    ${(() => {
+                        if (changelog.length === 0) {
+                            return '<p class="dark:text-text-secondary-dark">No changelog entries found yet.</p>';
+                        }
+                        
+                        const createLogItem = (log, isOlder = false) => `
+                            <div class="card-glass p-4 rounded-xl shadow-soft-dark ${isOlder ? 'older-log-item hidden' : ''}">
+                                <h4 class="font-bold text-lg dark:text-accent-primary">Version ${log.version} <span class="mono text-sm dark:text-text-secondary-dark font-normal">(${formatDate(log.date)})</span></h4>
+                                <p class="dark:text-text-secondary-dark mt-1">${log.notes}</p>
+                            </div>`;
 
-                    return `
-                        <div class="space-y-4">
-                            ${createLogItem(recentLog)}
-                            ${olderLogs.length > 0 ? `<div id="older-changelogs" class="hidden space-y-4">${olderLogs.map(createLogItem).join('')}</div>` : ''}
-                        </div>
-                        ${olderLogs.length > 0 ? `<button id="show-more-btn" onclick="document.getElementById('older-changelogs').classList.remove('hidden'); this.style.display='none';" class="mt-4 w-full text-center py-2 rounded-lg font-semibold text-sm transition duration-200 border border-accent-primary text-accent-primary hover:bg-accent-primary/10">Show More</button>` : ''}
-                    `;
-                })()}
+                        const recentLog = changelog[0];
+                        const olderLogs = changelog.slice(1);
+
+                        return `
+                            <div class="space-y-4">
+                                ${createLogItem(recentLog)}
+                                ${olderLogs.map(log => createLogItem(log, true)).join('')}
+                            </div>
+                            
+                            ${olderLogs.length > 0 ? `
+                            <div id="changelog-controls" class="mt-4 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                                <button id="show-more-btn" onclick="window.showMoreLogs()" class="w-full text-center py-2 rounded-lg font-semibold text-sm transition duration-200 border border-accent-primary text-accent-primary hover:bg-accent-primary/10">Show More</button>
+                                <button id="show-less-btn" onclick="window.showLessLogs()" class="w-full text-center py-2 rounded-lg font-semibold text-sm transition duration-200 border border-gray-600 text-gray-400 hover:bg-gray-700/50 hidden">Show Less</button>
+                            </div>
+                            ` : ''}
+                        `;
+                    })()}
+                </div>
             </div>
 
             <!-- Sidebar Column (Download & Stats) -->
@@ -908,6 +918,38 @@ const showAppDetail = async (appId, isReRender = false) => { // isReRender is no
     if (!isReRender) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+};
+
+window.showMoreLogs = () => {
+    const container = document.getElementById('changelog-container');
+    const showMoreBtn = document.getElementById('show-more-btn');
+    const showLessBtn = document.getElementById('show-less-btn');
+    const hiddenLogs = Array.from(document.querySelectorAll('.older-log-item.hidden'));
+    
+    let visibleCount = parseInt(container.dataset.visibleLogs, 10);
+    const logsToShow = hiddenLogs.slice(0, 3);
+
+    logsToShow.forEach(log => log.classList.remove('hidden'));
+    visibleCount += logsToShow.length;
+    container.dataset.visibleLogs = visibleCount;
+
+    if (document.querySelectorAll('.older-log-item.hidden').length === 0) {
+        showMoreBtn.classList.add('hidden');
+    }
+    showLessBtn.classList.remove('hidden');
+};
+
+window.showLessLogs = () => {
+    const container = document.getElementById('changelog-container');
+    const showMoreBtn = document.getElementById('show-more-btn');
+    const showLessBtn = document.getElementById('show-less-btn');
+    const visibleOlderLogs = document.querySelectorAll('.older-log-item:not(.hidden)');
+
+    visibleOlderLogs.forEach(log => log.classList.add('hidden'));
+    container.dataset.visibleLogs = 0;
+
+    showLessBtn.classList.add('hidden');
+    showMoreBtn.classList.remove('hidden');
 };
 
 const filterApps = (filter, sort, search) => {
