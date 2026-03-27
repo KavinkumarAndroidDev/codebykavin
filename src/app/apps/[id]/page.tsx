@@ -4,6 +4,8 @@ import { collection, doc, getDoc } from 'firebase/firestore';
 import { db, legacyAppId } from '@/lib/firebase';
 import AppDetailClient from './AppDetailClient';
 
+export const revalidate = 60;
+
 interface Props {
   params: { id: string };
 }
