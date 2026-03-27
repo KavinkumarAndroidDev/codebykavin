@@ -1,0 +1,459 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  padding: 4rem 0;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  font-family: 'Space Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: color 0.2s, transform 0.2s;
+  align-self: flex-start;
+}
+
+.backButton:hover {
+  color: var(--accent-primary);
+  transform: translateX(-4px);
+}
+
+.layoutGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6rem;
+}
+
+@media (min-width: 1024px) {
+  .layoutGrid {
+    grid-template-columns: 2fr 1fr;
+    align-items: start;
+  }
+}
+
+.mainColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.headerArea {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.appIconContainer {
+  width: 64px;
+  height: 64px;
+  background-color: var(--bg-secondary);
+  color: var(--accent-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.appName {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin: 0;
+  color: var(--text-main);
+  line-height: 1.1;
+}
+
+.appMeta {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.categoryBadge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    background: rgba(16, 185, 129, 0.1);
+    padding: 0.25rem 0.625rem;
+    border-radius: 6px;
+}
+
+.versionBadge {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.carousel {
+  position: relative;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid var(--border-color);
+}
+
+.mainScreenshot {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  cursor: zoom-in;
+  transition: opacity 0.3s ease;
+}
+
+.carouselBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.carouselBtn:hover {
+  background-color: rgba(0, 0, 0, 0.82);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.prevBtn { left: 1rem; }
+.nextBtn { right: 1rem; }
+
+.carouselCounter {
+    position: absolute;
+    bottom: 1rem;
+    right: 1.25rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    background: rgba(0,0,0,0.6);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    color: var(--text-muted);
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+}
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.sectionIcon {
+    color: var(--accent-primary);
+}
+
+.sectionTitle {
+  font-size: 0.8125rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.tagline {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+}
+
+.description {
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-size: 1rem;
+  white-space: pre-line;
+}
+
+.changelogContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.changelogList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.changelogItem {
+  padding: 1.5rem;
+}
+
+.logHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    align-items: baseline;
+}
+
+.logVersion {
+  font-size: 1.125rem;
+  color: var(--accent-primary);
+  font-weight: 800;
+}
+
+.logDate {
+  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-family: 'Space Mono', monospace;
+}
+
+.logNotes {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.toggleLogsBtn {
+  padding: 0.875rem;
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.toggleLogsBtn:hover {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-hover);
+  color: var(--text-main);
+}
+
+.emptyText {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.875rem;
+}
+
+.sidebarColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: sticky;
+  top: 6rem;
+}
+
+.downloadCard {
+  padding: 2rem;
+}
+
+.sidebarTitle {
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin: 0 0 1.5rem;
+}
+
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.apkButton, .playButton, .shareButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.875rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.9375rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apkButton {
+  background-color: var(--text-main);
+  color: var(--bg-main);
+}
+
+.apkButton:hover {
+  transform: translateY(-2px);
+  background-color: #FFFFFF;
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.15);
+}
+
+.playButton {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+}
+
+.playButton:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--border-hover);
+}
+
+.shareButton {
+  background: none;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  color: var(--accent-primary);
+  font-size: 0.8125rem;
+}
+
+.shareButton:hover {
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.statBox {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.statLabel {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+}
+
+.statValue {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+}
+
+.developerCard {
+    padding: 1.5rem;
+}
+
+.devHeader {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.devAvatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-primary), #000);
+}
+
+.devName {
+    font-weight: 700;
+    font-size: 0.9375rem;
+    color: var(--text-main);
+    margin: 0;
+}
+
+.devRole {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin: 0;
+}
+
+.profileLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    text-decoration: none;
+}
+
+.lightboxOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightboxContent {
+  position: relative;
+  width: 90vw;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightboxImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.lightboxClose {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

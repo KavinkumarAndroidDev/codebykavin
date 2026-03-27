@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  /* Premium Dark Theme - True Black Canvas */
+  --bg-main: #000000;
+  --bg-secondary: #0A0A0A;
+  
+  /* Emerald Green & Accents */
+  --emerald-900: #042f2e;
+  --emerald-800: #064e3b;
+  --emerald-600: #059669;
+  --emerald-500: #10b981;
+  --emerald-400: #34d399;
+  
+  --accent-primary: #10b981; /* Emerald 500 */
+  --accent-secondary: #065f46;
+  --accent-glow: rgba(16, 185, 129, 0.15);
+  
+  /* Text */
+  --text-main: #FAFAFA;
+  --text-secondary: #A1A1AA;
+  --text-muted: #71717A;
+  
+  /* UI Elements */
+  --card-bg: #0A0A0A;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.15);
+  
+  /* Shadows & Glows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-glow: 0 0 40px -10px rgba(16, 185, 129, 0.3);
+  --emerald-glow: 0 0 20px rgba(16, 185, 129, 0.2);
+  
+  /* Elite Spacing System */
+  --space-section-desktop: 10rem;
+  --space-section-mobile: 5rem;
+  --content-max-width: 1200px;
+  --container-padding: 2rem;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-main);
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(161, 84%, 37%, 0.03) 0, transparent 50%), 
+    radial-gradient(at 50% 0%, hsla(161, 84%, 37%, 0.02) 0, transparent 50%), 
+    radial-gradient(at 100% 0%, hsla(161, 84%, 37%, 0.03) 0, transparent 50%);
+  color: var(--text-main);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+  border-color: var(--border-color);
+}
+
+.layout-container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  width: 100%;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+@media (max-width: 640px) {
+  :root {
+    --container-padding: 1.25rem;
+  }
+}
+
+.mono {
+  font-family: 'Space Mono', monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Elite Glassmorphic Card Style */
+.card-glass {
+  background: rgba(10, 10, 10, 0.4);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-glass:hover {
+  background: rgba(16, 185, 129, 0.01);
+  border-color: rgba(16, 185, 129, 0.2);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6), var(--emerald-glow);
+  transform: translateY(-8px);
+}
+
+/* Animations & Transitions */
+.transition-all {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-hover);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
+
+/* Loading Spinner */
+.loader {
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: var(--accent-primary);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+::selection {
+  background: var(--accent-primary);
+  color: #000;
+}
