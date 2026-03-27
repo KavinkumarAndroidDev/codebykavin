@@ -6,6 +6,7 @@ import { useAppData } from '@/context/AppContext';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import Link from 'next/link';
 import { Package, Search, ChevronDown, Filter, Star, Download } from 'lucide-react';
+import LucideIcon from '@/components/LucideIcon';
 import styles from './apps.module.css';
 
 const containerVariants: Variants = {
@@ -152,7 +153,7 @@ export default function AppsClient() {
               <Link href={`/apps/${app.id}`} className={`${styles.appCard} card-glass`}>
                 <div className={styles.cardHeader}>
                   <div className={styles.appIconWrapper}>
-                    <Package size={24} />
+                    <LucideIcon name={app.icon} size={24} />
                   </div>
                   <div>
                     <h3 className={styles.appName}>{app.name}</h3>

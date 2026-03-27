@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { Package, Download, Play, ChevronLeft, ChevronRight, Share2, ArrowLeft, Star, Calendar, Info, Clock, ExternalLink } from 'lucide-react';
+import LucideIcon from '@/components/LucideIcon';
 import { useEffect, useState, useMemo } from 'react';
 import { collection, query, orderBy, getDocs } from 'firebase/firestore';
 import { db, legacyAppId } from '@/lib/firebase';
@@ -142,7 +143,7 @@ export default function AppDetailClient() {
         <div className={styles.mainColumn}>
           <motion.div variants={itemVariants} className={styles.headerArea}>
             <div className={styles.appIconContainer}>
-              <Package size={32} />
+              <LucideIcon name={app.icon} size={32} />
             </div>
             <div>
               <h1 className={styles.appName}>{app.name}</h1>

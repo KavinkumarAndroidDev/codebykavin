@@ -3,6 +3,7 @@
 import { useAppData } from '@/context/AppContext';
 import { motion, Variants } from 'framer-motion';
 import { Package, Clock, ArrowRight } from 'lucide-react';
+import LucideIcon from '@/components/LucideIcon';
 import Link from 'next/link';
 
 const containerVariants: Variants = {
@@ -72,7 +73,7 @@ export default function UpdatesPage() {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
-                        <Package size={24} />
+                        <LucideIcon name={app.icon} size={24} />
                     </div>
                     <div style={{ flexGrow: 1 }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '0.75rem' }}>

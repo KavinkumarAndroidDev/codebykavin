@@ -57,6 +57,7 @@ export const AppContext = createContext<AppContextType>({
 const getDisplayCategoryDetails = (categoryId: string) => {
   switch (categoryId.toLowerCase()) {
       case 'productivity': return { name: 'Productivity', icon: 'calendar-check' };
+      case 'fun':
       case 'games': return { name: 'Fun', icon: 'gamepad-2' };
       case 'tools': return { name: 'Tools', icon: 'wrench' };
       case 'experiments': return { name: 'Experiments', icon: 'flask-conical' };
